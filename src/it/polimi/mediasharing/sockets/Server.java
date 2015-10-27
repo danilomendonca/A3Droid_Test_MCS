@@ -77,9 +77,8 @@ public class Server extends Thread{
 		        int reason = dis.readInt();
 		        switch (reason) {
 				case MainActivity.RFS:
-					String time = dis.readUTF();
+					//String time = dis.readUTF();
 					A3Message rfs = new A3Message(MainActivity.RFS, 
-							time + "#" + 
 							socket.getLocalAddress().getHostAddress() + "#" +
 							socket.getRemoteSocketAddress());
 			        role.receiveApplicationMessage(rfs);
@@ -94,7 +93,8 @@ public class Server extends Thread{
 			        //for(int i = 0; i < intArray.length; i++)
 			        	//	intArray[i] = byteArray[i];
 			        stringContent.append(Arrays.toString(byteArray));
-			        A3Message content = new A3Message(MainActivity.MEDIA_DATA, stringContent.toString());
+			        A3Message content = new A3Message(MainActivity.MEDIA_DATA, 
+			        		socket.getRemoteSocketAddress() + "#" + stringContent.toString());
 			        role.receiveApplicationMessage(content);
 			        break;
 				default:

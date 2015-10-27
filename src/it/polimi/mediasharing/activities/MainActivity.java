@@ -44,6 +44,7 @@ public class MainActivity extends A3DroidActivity{
 	public static final int RFS = 50;
 	public static final int MC = 51;
 	public static final int SID = 52;
+	public static final int MCR = 53;
 	
 	private A3Node node;
 	private EditText inText;

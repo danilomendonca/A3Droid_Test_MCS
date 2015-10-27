@@ -47,7 +47,7 @@ public class ControlSupervisorRole extends A3SupervisorRole {
 				vmIds.add(message.senderAddress);
 				showOnScreen("Telefoni connessi: " + vmIds.size());
 				if(launchedGroups > 1)
-					channel.sendUnicast(new A3Message(MainActivity.CREATE_GROUP, runningExperiment + "_" + launchedGroups), message.senderAddress);
+					channel.sendUnicast(new A3Message(MainActivity.CREATE_GROUP, runningExperiment + "_" + (launchedGroups - 1)), message.senderAddress);
 				break;
 				
 			case MainActivity.CREATE_GROUP_USER_COMMAND:
