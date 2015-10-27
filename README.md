@@ -18,3 +18,7 @@ Currently alljoyn framework only supports wi-fi as a stable connection method. B
 * Follow the instruction for the [Media Content Sender](https://github.com/danilomendonca/A3Droid_Test_MCS_Sender) application
 * Once the sender has started sending messages, each group member will print log messages indicating the arrival of the hand-shake message and also the media content message
 * Experiment measurements are saved in the sender device
+
+##System overview
+![System overview]
+(https://raw.githubusercontent.com/danilomendonca/A3Droid_Test_MCS/master/docs/overview.png)
