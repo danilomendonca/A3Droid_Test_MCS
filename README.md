@@ -12,9 +12,9 @@ Currently alljoyn framework only supports wi-fi as a stable connection method. B
 
 * Select two or more devices to be the receiver group members
 * Use one of the devices interface to create a group
-** Insert the numeric ID of the group in the text field
-** Click in the **Create Group** button
-** Wait for all devices to print the message [A3Test_GROUP_ID_[FOL|SUP]Role]
+  * Insert the numeric ID of the group in the text field
+  * Click in the **Create Group** button
+  * Wait for all devices to print the message [A3Test_GROUP_ID_[FOL|SUP]Role]
 * Follow the instruction for the Sender application
 * Once the sender has started sending messages, each group member will print log messages indicating the arrival of the hand-shake message and also the media content message
 * Experiment measurements are saved in the sender device
