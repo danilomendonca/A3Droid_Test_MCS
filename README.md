@@ -14,7 +14,7 @@ Currently alljoyn framework only supports wi-fi as a stable connection method. B
 * Use one of the devices interface to create a group
   * Insert the numeric ID of the group in the text field
   * Click in the **Create Group** button
-  * Wait for all devices to print the message [A3Test_GROUP_ID_[FOL|SUP]Role]
+  * Wait for all devices to print the message **A3Test_GROUP_ID_[FOL|SUP]Role**
 * Follow the instruction for the [Media Content Sender](https://github.com/danilomendonca/A3Droid_Test_MCS_Sender) application
 * Once the sender has started sending messages, each group member will print log messages indicating the arrival of the hand-shake message and also the media content message
 * Experiment measurements are saved in the sender device
