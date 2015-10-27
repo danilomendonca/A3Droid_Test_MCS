@@ -1,7 +1,11 @@
 package it.polimi.mediasharing.activities;
 
-import it.polimi.mediasharing.a3.ControlDescriptor;
-import it.polimi.mediasharing.a3.ExperimentDescriptor;
+import it.polimi.mediasharing.a3.groups.ControlDescriptor;
+import it.polimi.mediasharing.a3.groups.ExperimentDescriptor;
+import it.polimi.mediasharing.a3.roles.ControlFollowerRole;
+import it.polimi.mediasharing.a3.roles.ControlSupervisorRole;
+import it.polimi.mediasharing.a3.roles.ExperimentFollowerRole;
+import it.polimi.mediasharing.a3.roles.ExperimentSupervisorRole;
 import it.polimit.mediasharing.R;
 
 import java.util.ArrayList;
@@ -10,6 +14,7 @@ import a3.a3droid.A3DroidActivity;
 import a3.a3droid.A3Message;
 import a3.a3droid.A3Node;
 import a3.a3droid.GroupDescriptor;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -20,7 +25,6 @@ import android.widget.EditText;
 
 public class MainActivity extends A3DroidActivity{
 	
-	public static final String PACKAGE_NAME = "it.polimi.mediasharing.a3";
 	public static final String EXPERIMENT_PREFIX = "A3Test3_";
 	public static final int NUMBER_OF_EXPERIMENTS = 32;
 	
@@ -47,12 +51,12 @@ public class MainActivity extends A3DroidActivity{
 	private Handler fromGuiThread;
 	private EditText experiment;
 	public static int runningExperiment;
-	//private EditText numberOfGroupsToCreate;
 	
 	public static void setRunningExperiment(int runningExperiment) {
 		MainActivity.runningExperiment = runningExperiment;
 	}
 
+	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,10 +91,10 @@ public class MainActivity extends A3DroidActivity{
 		experiment = (EditText)findViewById(R.id.editText1);
 		
 		ArrayList<String> roles = new ArrayList<String>();
-		roles.add(PACKAGE_NAME + ".ControlSupervisorRole");
-		roles.add(PACKAGE_NAME + ".ControlFollowerRole");
-		roles.add(PACKAGE_NAME + ".ExperimentSupervisorRole");
-		roles.add(PACKAGE_NAME + ".ExperimentFollowerRole");
+		roles.add(ControlSupervisorRole.class.getName());
+		roles.add(ControlFollowerRole.class.getName());
+		roles.add(ExperimentSupervisorRole.class.getName());
+		roles.add(ExperimentFollowerRole.class.getName());
 		
 		
 		ArrayList<GroupDescriptor> groupDescriptors = new ArrayList<GroupDescriptor>();
@@ -115,7 +119,6 @@ public class MainActivity extends A3DroidActivity{
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -128,7 +131,6 @@ public class MainActivity extends A3DroidActivity{
 	
 	@Override
 	public void showOnScreen(String message) {
-		// TODO Auto-generated method stub
 		toGuiThread.sendMessage(toGuiThread.obtainMessage(0, message));
 	}
 }
