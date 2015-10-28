@@ -9,7 +9,6 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 
 import a3.a3droid.A3Message;
 
@@ -77,7 +76,6 @@ public class Server extends Thread{
 		        int reason = dis.readInt();
 		        switch (reason) {
 				case MainActivity.RFS:
-					//String time = dis.readUTF();
 					A3Message rfs = new A3Message(MainActivity.RFS, 
 							socket.getLocalAddress().getHostAddress() + "#" +
 							socket.getRemoteSocketAddress());
@@ -87,14 +85,8 @@ public class Server extends Thread{
 					while ((count = bis.read(buffer)) > 0) {
 			        	baos.write(buffer, 0, count);
 			        }		        
-					StringBuilder stringContent = new StringBuilder();
-			        byte[] byteArray = baos.toByteArray();
-			        //int [] intArray = new int [byteArray.length];
-			        //for(int i = 0; i < intArray.length; i++)
-			        	//	intArray[i] = byteArray[i];
-			        stringContent.append(Arrays.toString(byteArray));
 			        A3Message content = new A3Message(MainActivity.MEDIA_DATA, 
-			        		socket.getRemoteSocketAddress() + "#" + stringContent.toString());
+			        		socket.getRemoteSocketAddress().toString(), baos.toByteArray());
 			        role.receiveApplicationMessage(content);
 			        break;
 				default:

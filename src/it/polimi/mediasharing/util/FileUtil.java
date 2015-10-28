@@ -8,20 +8,15 @@ import java.io.OutputStream;
 
 public class FileUtil {
 	
-	public static void storeFile(String bytesContent, String destination){
+	public static void storeFile(byte [] contentBytes, String destination){
 		try {
 			OutputStream out;
         	File file = new File(destination);
-            if (!file.exists()) {
+            if(!file.exists()){
 				file.createNewFile();
 			}
             out = new FileOutputStream(file);	            	            
-            String[] byteValues = bytesContent.substring(1, bytesContent.length() - 1).split(",");
-            byte[] bytes = new byte[byteValues.length];
-            for (int i=0, len=bytes.length; i<len; i++) {
-            	bytes[i] = Byte.parseByte(byteValues[i].trim());     
-            }
-            out.write(bytes);
+            out.write(contentBytes);
             out.close();
           
 		} catch (NumberFormatException nfe){

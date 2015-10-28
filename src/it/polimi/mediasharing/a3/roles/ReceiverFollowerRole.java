@@ -33,9 +33,8 @@ public class ReceiverFollowerRole extends A3FollowerRole{
 		switch(message.reason){
 			case MainActivity.MEDIA_DATA_SHARE:
 				showOnScreen("Persisting the MC locally");
-				String response [] = ((String)message.object).split("#");
-				String remoteAddress = response[0].replaceAll("/|:\\d*", "");
-				FileUtil.storeFile(response[1], Environment.getExternalStorageDirectory() + "/a3droid/image.jpg");
+				String remoteAddress = message.object.replaceAll("/|:\\d*", "");
+				FileUtil.storeFile(message.bytes, Environment.getExternalStorageDirectory() + "/a3droid/image.jpg");
 				channel.sendToSupervisor(new A3Message(MainActivity.MCR, remoteAddress));
 				break;
 	
