@@ -4,8 +4,8 @@ import it.polimi.mediasharing.a3.groups.ControlDescriptor;
 import it.polimi.mediasharing.a3.groups.ExperimentDescriptor;
 import it.polimi.mediasharing.a3.roles.ControlFollowerRole;
 import it.polimi.mediasharing.a3.roles.ControlSupervisorRole;
-import it.polimi.mediasharing.a3.roles.ExperimentFollowerRole;
-import it.polimi.mediasharing.a3.roles.ExperimentSupervisorRole;
+import it.polimi.mediasharing.a3.roles.ReceiverFollowerRole;
+import it.polimi.mediasharing.a3.roles.ReceiverSupervisorRole;
 import it.polimit.mediasharing.R;
 
 import java.util.ArrayList;
@@ -94,8 +94,8 @@ public class MainActivity extends A3DroidActivity{
 		ArrayList<String> roles = new ArrayList<String>();
 		roles.add(ControlSupervisorRole.class.getName());
 		roles.add(ControlFollowerRole.class.getName());
-		roles.add(ExperimentSupervisorRole.class.getName());
-		roles.add(ExperimentFollowerRole.class.getName());
+		roles.add(ReceiverSupervisorRole.class.getName());
+		roles.add(ReceiverFollowerRole.class.getName());
 		
 		
 		ArrayList<GroupDescriptor> groupDescriptors = new ArrayList<GroupDescriptor>();

@@ -11,13 +11,15 @@ import a3.a3droid.A3Message;
 import a3.a3droid.A3SupervisorRole;
 import android.os.Environment;
 
-public class ExperimentSupervisorRole extends A3SupervisorRole {
+public class ReceiverSupervisorRole extends A3SupervisorRole {
 
 	private boolean startExperiment;
 	private Server server;
 	private Client client;
+	private int groupSize;
+	private int dataToWait;
 	
-	public ExperimentSupervisorRole() {
+	public ReceiverSupervisorRole() {
 		super();		
 	}
 
@@ -26,6 +28,8 @@ public class ExperimentSupervisorRole extends A3SupervisorRole {
 		client = new Client();
 		startFileServer();
 		startExperiment = true;		
+		groupSize = 1;
+		dataToWait = groupSize;
 	}	
 	
 	private void startFileServer(){
@@ -46,6 +50,10 @@ public class ExperimentSupervisorRole extends A3SupervisorRole {
 	@Override
 	public void receiveApplicationMessage(A3Message message) {
 		switch(message.reason){
+		
+			case MainActivity.NEW_PHONE:
+				groupSize++;
+				break;
 			case MainActivity.RFS:
 				showOnScreen("Received a Request for Sharing (RFS)");
 				String [] msgs = ((String) message.object).split("#");
@@ -61,7 +69,6 @@ public class ExperimentSupervisorRole extends A3SupervisorRole {
 			case MainActivity.MEDIA_DATA:
 				showOnScreen("Sharing the Media Conent (MC) with followers");
 				message.reason = MainActivity.MEDIA_DATA_SHARE;
-				//message.object = lcat + "#" + (String)message.object;
 				channel.sendBroadcast(message);
 				break;
 				
@@ -70,21 +77,28 @@ public class ExperimentSupervisorRole extends A3SupervisorRole {
 				String response [] = ((String)message.object).split("#");
 				remoteAddress = response[0].replaceAll("/|:\\d*", "");
 				FileUtil.storeFile(response[1], Environment.getExternalStorageDirectory() + "/a3droid/image.jpg");
-				try {					
-					client.sendMessage(remoteAddress, 4444, MainActivity.MCR, "");
-				} catch (IOException e) {
-					e.printStackTrace();
+				receiveApplicationMessage(new A3Message(MainActivity.MCR, remoteAddress));
+				break;
+				
+			case MainActivity.MCR:
+				if(--dataToWait <= 0){
+					try {					
+						client.sendMessage((String) message.object, 4444, MainActivity.MCR, "");
+						dataToWait = groupSize;
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 				break;
 				
 			case MainActivity.START_EXPERIMENT:
 				if(startExperiment){
 					startExperiment = false;
+					dataToWait = groupSize;
 					channel.sendBroadcast(message);
 				}
 				else
 					startExperiment = true;
-				
 				break;
 			}
 	}

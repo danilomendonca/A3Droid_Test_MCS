@@ -1,6 +1,6 @@
 package it.polimi.mediasharing.sockets;
 
-import it.polimi.mediasharing.a3.roles.ExperimentSupervisorRole;
+import it.polimi.mediasharing.a3.roles.ReceiverSupervisorRole;
 import it.polimi.mediasharing.activities.MainActivity;
 
 import java.io.BufferedInputStream;
@@ -15,11 +15,11 @@ import a3.a3droid.A3Message;
 
 public class Server extends Thread{
 	
-	ExperimentSupervisorRole role;
+	ReceiverSupervisorRole role;
 	int port;
 	Socket socket;
 	
-	public Server(int port, ExperimentSupervisorRole role) throws IOException {
+	public Server(int port, ReceiverSupervisorRole role) throws IOException {
 		this.role = role;
 		this.port = port;
 	}
