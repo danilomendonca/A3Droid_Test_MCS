@@ -12,14 +12,17 @@ public class A3Message {
 
 	/**The address of the channel which sends this message.*/
 	@Position(0)
+	@Signature("s")
 	public String senderAddress;
 	
 	/**The kind of this message.*/
 	@Position(1)
+	@Signature("i")
 	public int reason;
 	
 	/**The data in this message.*/
 	@Position(2)
+	@Signature("s")
 	public String object;
 	
 	/**The extra data in this message.*/

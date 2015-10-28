@@ -46,7 +46,7 @@ public interface A3ServiceInterface {
 	 * @return true if the transmission was successful, otherwise false.
 	 * @throws BusException AllJoyn errors.
 	 */
-	@BusMethod(signature = "(sis)s", replySignature = "b")
+	@BusMethod(signature = "(sisay)s", replySignature = "b")
 	public boolean sendUnicast(A3Message message, String address) throws BusException;
 	
 	/**Used by the Service to send messages to all the channels of the group.
