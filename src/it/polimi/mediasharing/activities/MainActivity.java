@@ -45,6 +45,7 @@ public class MainActivity extends A3DroidActivity{
 	public static final int MC = 51;
 	public static final int SID = 52;
 	public static final int MCR = 53;
+	public static final int RFSD = 54;
 	
 	private A3Node node;
 	private EditText inText;
@@ -77,13 +78,18 @@ public class MainActivity extends A3DroidActivity{
 		fromGuiThread = new Handler(thread.getLooper()){
 			@Override
 			public void handleMessage(Message msg){
-				if(msg.what < 5)
-					node.sendToSupervisor(new A3Message(MainActivity.CREATE_GROUP_USER_COMMAND, experiment.getText().toString()), "control");
-				else{
-					if(msg.what == 5)
+				switch (msg.what) {
+					case CREATE_GROUP_USER_COMMAND:
+						node.sendToSupervisor(new A3Message(MainActivity.CREATE_GROUP_USER_COMMAND, experiment.getText().toString()), "control");
+						break;
+					case STOP_EXPERIMENT_COMMAND:
 						node.sendToSupervisor(new A3Message(MainActivity.LONG_RTT, ""), "control");
-					else
+						break;
+					case START_EXPERIMENT_USER_COMMAND:
 						node.sendToSupervisor(new A3Message(MainActivity.START_EXPERIMENT_USER_COMMAND, ""), "control");
+						break;
+					default:
+						break;
 				}					
 			}
 		};
@@ -107,15 +113,15 @@ public class MainActivity extends A3DroidActivity{
 	}
 
 	public void start1(View v){
-		fromGuiThread.sendEmptyMessage(1);
+		fromGuiThread.sendEmptyMessage(CREATE_GROUP_USER_COMMAND);
 	}
 	
 	public void stopExperiment(View v){
-		fromGuiThread.sendEmptyMessage(5);
+		fromGuiThread.sendEmptyMessage(STOP_EXPERIMENT_COMMAND);
 	}
 	
 	public void startExperiment(View v){
-		fromGuiThread.sendEmptyMessage(6);
+		fromGuiThread.sendEmptyMessage(START_EXPERIMENT_USER_COMMAND);
 	}
 	
 	@Override

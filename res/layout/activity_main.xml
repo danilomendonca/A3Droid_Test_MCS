@@ -17,6 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" 
+            android:ems="3"
             android:inputType="number"/>
         <Button
             android:id="@+id/button1"
@@ -25,7 +26,7 @@
             android:onClick="start1"
             android:text="@string/create_group" />
     </LinearLayout>    
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         style="@android:attr/buttonBarStyle">
@@ -43,7 +44,7 @@
             android:onClick="stopExperiment"
             android:text="@string/stop_trial" 
             style="@android:attr/buttonBarButtonStyle"/>
-    </LinearLayout>
+    </LinearLayout>-->
     <EditText
         android:id="@+id/oneInEditText"
         android:layout_width="match_parent"
