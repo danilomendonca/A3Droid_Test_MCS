@@ -31,6 +31,9 @@ public class A3Node extends Thread implements UserInterface{
 	 */
 	private static final int DOES_NOT_EXIST = 3;
 
+	/**The device's UUID*/
+	private String uuId;
+	
 	/**The user interface to interact with.*/
 	private UserInterface ui;
 
@@ -60,9 +63,10 @@ public class A3Node extends Thread implements UserInterface{
 	 * @param roles The list of roles this node can assume.
 	 * @param groupDescriptors The list of the descriptors of the groups that can be present in the system.
 	 */
-	public A3Node (UserInterface ui, ArrayList<String> roles, ArrayList<GroupDescriptor> groupDescriptors){
+	public A3Node (String uuId, UserInterface ui, ArrayList<String> roles, ArrayList<GroupDescriptor> groupDescriptors){
 
 		super("node");
+		this.uuId = uuId;
 		this.ui = ui;
 		channels = new ArrayList<A3Channel>();
 		channelsStatus = new HashMap<String, Integer>();
@@ -1172,5 +1176,9 @@ public class A3Node extends Thread implements UserInterface{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getUUID(){
+		return this.uuId;
 	}
 }

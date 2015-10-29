@@ -108,7 +108,8 @@ public class MainActivity extends A3DroidActivity{
 		groupDescriptors.add(new ControlDescriptor());
 		groupDescriptors.add(new ExperimentDescriptor());
 		
-		node = new A3Node(this, roles, groupDescriptors);
+		node = new A3Node(getUUID(), this, roles, groupDescriptors);
+		showOnScreen("UUID: " + node.getUUID());
 		node.connect("control", false, true);
 	}
 

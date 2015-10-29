@@ -116,7 +116,9 @@ public class Subscriptions {
 				}
 				showOnScreen(groupSubscriptions.toString());
 			}
-		}catch(Exception e){}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	/**
