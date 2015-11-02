@@ -6,6 +6,9 @@ import it.polimi.mediasharing.sockets.Server;
 import it.polimi.mediasharing.util.FileUtil;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import a3.a3droid.A3Message;
 import a3.a3droid.A3SupervisorRole;
@@ -16,7 +19,7 @@ public class ReceiverSupervisorRole extends A3SupervisorRole {
 	private boolean startExperiment;
 	private Server server;
 	private Client client;
-	private int groupSize;
+	private Set <String> group;
 	private int dataToWait;
 	
 	public ReceiverSupervisorRole() {
@@ -28,8 +31,9 @@ public class ReceiverSupervisorRole extends A3SupervisorRole {
 		client = new Client();
 		startFileServer();
 		startExperiment = true;		
-		groupSize = 1;
-		dataToWait = groupSize;
+		group = Collections.synchronizedSet(new HashSet<String>()); 
+		group.add(node.getUUID());
+		dataToWait = group.size();
 	}	
 	
 	private void startFileServer(){
@@ -52,7 +56,7 @@ public class ReceiverSupervisorRole extends A3SupervisorRole {
 		switch(message.reason){
 		
 			case MainActivity.NEW_PHONE:
-				groupSize++;
+				group.add(message.object);
 				break;
 			case MainActivity.RFS:
 				showOnScreen("Received a Request for Sharing (RFS)");
@@ -83,7 +87,7 @@ public class ReceiverSupervisorRole extends A3SupervisorRole {
 				if(--dataToWait <= 0){
 					try {					
 						client.sendMessage((String) message.object, 4444, MainActivity.MCR, "");
-						dataToWait = groupSize;
+						dataToWait = group.size();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -93,7 +97,7 @@ public class ReceiverSupervisorRole extends A3SupervisorRole {
 			case MainActivity.START_EXPERIMENT:
 				if(startExperiment){
 					startExperiment = false;
-					dataToWait = groupSize;
+					dataToWait = group.size();
 					channel.sendBroadcast(message);
 				}
 				else

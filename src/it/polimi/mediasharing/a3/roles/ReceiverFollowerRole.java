@@ -18,7 +18,7 @@ public class ReceiverFollowerRole extends A3FollowerRole{
 	@Override
 	public void onActivation() {
 		currentExperiment = Integer.valueOf(getGroupName().split("_")[1]);
-		channel.sendToSupervisor(new A3Message(MainActivity.NEW_PHONE, ""));
+		channel.sendToSupervisor(new A3Message(MainActivity.NEW_PHONE, node.getUUID()));
 	}
 
 	@Override
