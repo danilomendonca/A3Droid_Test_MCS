@@ -79,7 +79,7 @@ public class ReceiverSupervisorRole extends A3SupervisorRole {
 			case MainActivity.MEDIA_DATA_SHARE:
 				showOnScreen("Persisting the MC locally");
 				remoteAddress = ((String)message.object).replaceAll("/|:\\d*", "");
-				FileUtil.storeFile(message.bytes, Environment.getExternalStorageDirectory() + "/a3droid/image.jpg");
+				FileUtil.storeFile(message.bytes, Environment.getExternalStorageDirectory() + "/a3droid", "image.jpg");
 				receiveApplicationMessage(new A3Message(MainActivity.MCR, remoteAddress));
 				break;
 				

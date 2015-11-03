@@ -8,14 +8,16 @@ import java.io.OutputStream;
 
 public class FileUtil {
 	
-	public static void storeFile(byte [] contentBytes, String destination){
+	public static void storeFile(byte [] contentBytes, String destination, String name){
 		try {
 			OutputStream out;
-        	File file = new File(destination);
-            if(!file.exists()){
+			File folder = new File(destination);
+			if(!folder.exists())
+				folder.mkdir();
+        	File file = new File(destination + "/" + name);			
+            if(!file.exists())
 				file.createNewFile();
-			}
-            out = new FileOutputStream(file);	            	            
+            out = new FileOutputStream(file);            	            
             out.write(contentBytes);
             out.close();
           
